@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="IE=edge" http-equiv="x-ua-compatible">
+
+        <title>Foggy Py Cloud Service Emulation</title>
+
+        <script src="/static/scripts/app.js"></script>
+
+        <script>
+            app = app();
+            window.addEventListener("load", function() {
+                app.getServiceStatuses(function(statuses) {
+                    var status;
+                    var row, cell;
+                    var table = document.getElementById("status_table");
+
+                    for(var i = 0; i < statuses.length; i++) {
+                        status = statuses[i];
+                        console.info(statuses[i]["name"] +  "-" + statuses[i]["status"]);
+                        row = document.createElement("tr");
+                        cell = document.createElement("td");
+                        cell.innerText = status["name"];
+                        row.appendChild(cell);
+
+                        cell = document.createElement("td");
+                        cell.innerText = status["status"];
+                        row.appendChild(cell);
+
+                        table.tBodies[0].appendChild(row);
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Foggy Py</h1>
+        <br/>
+        <table id="status_table">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </body>
+</html>
