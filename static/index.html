@@ -13,15 +13,17 @@
             window.addEventListener("load", function() {
                 app.getServiceStatuses(function(statuses) {
                     var status;
-                    var row, cell;
+                    var row, cell, link;
                     var table = document.getElementById("status_table");
 
                     for(var i = 0; i < statuses.length; i++) {
                         status = statuses[i];
-                        console.info(statuses[i]["name"] +  "-" + statuses[i]["status"]);
                         row = document.createElement("tr");
                         cell = document.createElement("td");
-                        cell.innerText = status["name"];
+                        link = document.createElement("a");
+                        link.href = status["main_page"];
+                        link.innerText = status["name"];
+                        cell.appendChild(link);
                         row.appendChild(cell);
 
                         cell = document.createElement("td");

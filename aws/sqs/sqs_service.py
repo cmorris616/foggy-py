@@ -8,3 +8,4 @@ class SqsService(Service):
         self.name = 'SQS'
         self.status = 'Initializing'
         self.main_page = f'/{SERVICE_AWS_SQS}/status.html'
+        self.status = "Running"
