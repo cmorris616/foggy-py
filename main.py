@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, send_file
+from flask import Flask, send_file, request
 
 from aws.sqs.sqs_service import SqsService
 from globals import SERVICE_AWS_SQS
@@ -34,7 +34,7 @@ def home_page():
 
 
 @app.route('/<service>')
-def service_home_page(service):
+def service_request(service):
     """
     Returns the main page for the specified service
     :param service: the name of the service to return the page
@@ -43,7 +43,10 @@ def service_home_page(service):
     if service not in AVAILABLE_SERVICES.keys():
         return get_static_page("service_not_found.html")
 
-    return get_static_page(AVAILABLE_SERVICES[service].main_page)
+    if len(request.args) == 0:
+        return get_static_page(AVAILABLE_SERVICES[service].main_page)
+
+    return AVAILABLE_SERVICES[service].process_request(request)
 
 
 @app.route('/<service>/<page>')
